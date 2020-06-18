@@ -11,13 +11,10 @@ public class ShapeCombination implements Shape {
     private static final char INTERSECTION = '&';
 
     /**
-     * Construct a shape that is the result of operation between two shapes. In
-     * particular, the operation follows the pattern: <i>shapeA shapeOperator
-     * shapeB</i>. Which one comes first matters.
-     *
-     * @param shapeA
-     * @param shapeB
-     * @param Operator
+     * Construct a shape that is the result of operation between two shapes. Which one comes first matters.
+     * @param shapeA The first shape
+     * @param shapeB The second shape
+     * @param Operator The operation between two shapes
      */
     public ShapeCombination(Shape shapeA, Shape shapeB, char Operator) {
         this.shapeA = shapeA;
@@ -33,6 +30,9 @@ public class ShapeCombination implements Shape {
     }
 
     @Override
+    /**
+     * Determine whether or not the given point is contained within this shape.
+     */
     public boolean contains(int x, int y) {
         if (Operator == UNION) {
             return shapeA.contains(x, y) || shapeB.contains(x, y);
@@ -44,6 +44,13 @@ public class ShapeCombination implements Shape {
     }
 
     @Override
+    /**
+     * Determine a <i>bounding box</i> of the current shape. A bounding box is a
+     *      * box that will fit around the entire shape and, hence, can be used to
+     *      * determine the maximum width and height of the shape. This is useful when
+     *      * it comes to drawing the shape!
+     *      *
+     */
     public Shape boundingBox() {
         // the bounding boxes of two input shapes
         Rectangle boundingBoxA = (Rectangle) shapeA.boundingBox();
@@ -94,7 +101,7 @@ public class ShapeCombination implements Shape {
                 return null;
             }
 
-             //the boundary of intersection part
+            //the boundary of intersection part
             int leftIntersection = Math.max(leftMostA, leftMostB);
             int rightIntersection = Math.min(rightMostA, rightMostB);
             int upIntersection = Math.max(upMostA, upMostB);
